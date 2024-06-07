@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMapName }}
+  namespace: {{ .Values.namespace }}
+data:
+  SECRET_PATH: {{ .Values.secret_path }}

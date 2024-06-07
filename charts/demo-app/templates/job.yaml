@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sample-app-job
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: sample-app
+spec:
+  template:
+    metadata:
+      {{- with .Values.vault_annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: sample-app
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      containers:
+        - name: sample-app
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configMapName }}
+      restartPolicy: Never

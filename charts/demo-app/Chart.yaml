@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sample-app-chart
+description: A Helm chart for deploying the sample app
+version: 0.1.0
